@@ -17,7 +17,13 @@ alias glg='git log --pretty=oneline'
 
 export PATH="$HOME/.rbenv/bin:$PATH"
 export PATH="$HOME/bin:$PATH"
+export PATH=$PATH:/Library/TeX/texbin/
 
 # rbenv
 eval "$(rbenv init -)"
+
+. "$HOME/.cargo/env"
+
+# use brew sqlite3, not MacOS default
+export PATH="$(brew --prefix sqlite3)/bin:${PATH}"
 

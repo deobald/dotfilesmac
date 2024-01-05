@@ -1,55 +1,26 @@
-# Path to your oh-my-zsh configuration.
-ZSH=$HOME/.oh-my-zsh
-if [ -s $HOME/.oh-my-zsh-custom ]; then
-    ZSH_CUSTOM=$HOME/.oh-my-zsh-custom
-fi
 
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
-if [ -n $ZSH_CUSTOM ] && [ -f $ZSH_CUSTOM/`whoami`.zsh-theme ]; then
-    ZSH_THEME="`whoami`"
-else
-    ZSH_THEME="kitallis-darkblood"
-fi
+# environment ------------------------------------------------
 
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-
-# Set to this to use case-sensitive completion
-# CASE_SENSITIVE="true"
-
-# Comment this out to disable weekly auto-update checks
-# DISABLE_AUTO_UPDATE="true"
-
-# Uncomment following line if you want to disable colors in ls
-# DISABLE_LS_COLORS="true"
-
-# Uncomment following line if you want to disable autosetting terminal title.
-DISABLE_AUTO_TITLE="true"
-
-# Uncomment following line if you want red dots to be displayed while waiting for completion
-# COMPLETION_WAITING_DOTS="true"
-
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git rbenv ruby gem rails brew bundler)
-
-
-DISABLE_UPDATE_PROMPT=true # will auto update without prompt
-#DISABLE_AUTO_UPDATE="true" # will disable auto updates entirely
-
-source $ZSH/oh-my-zsh.sh
-unsetopt correct_all
+# color the terminal
+export CLICOLOR=1
+export LSCOLORS=gxfxcxdxbxegedabagacad
 
 # Customize to your needs...
 export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11/bin
 
+GPG_TTY=$(tty)
+export GPG_TTY
+
+# history -----------------------------------------------------
+
+HISTCONTROL=ignoreboth # no dupes or lines starting with spaces
+export PROMPT_COMMAND='history -a;history -r' # across tabs
+HISTSIZE=1000
+HISTFILESIZE=2000
+
 # aliases -----------------------------------------------------
-alias emacs="open -na /Applications/Emacs.app/Contents/MacOS/Emacs ."
+
+#alias emacs="open -na /Applications/Emacs.app/Contents/MacOS/Emacs ."
 
 # general
 alias la="ls -lach"
@@ -75,20 +46,8 @@ alias ......='cd ../../../../..'
 alias .......='cd ../../../../../..'
 
 alias ll="ls -l"
-if which brew &> /dev/null; then
-  alias i="brew install"
-  alias up="brew upgrade"
-else if which apt-get &> /dev/null; then
-    alias i="sudo apt-get install"
-    alias up="sudo apt-get upgrade"
-  fi fi
-alias gi="gem install"
 alias ctags="/usr/local/Cellar/ctags/5.8/bin/ctags"
 alias refreshctags="ctags -f tags --recurse=yes . && find . -name '*.rb' -o -name '*.java' -o -name '*.cs' -o -name '*.js' -o -name '*.haml' -o -name '*.erb' -o -name '*.coffee' >| cscope.files && cscope -b -q"
-alias sp=spork
-alias r=rake
-alias b=bundle
-alias be='bundle exec'
 
 export HISTFILE=~/.zhistory
 
@@ -142,9 +101,40 @@ fi
 # rbenv
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
+# rbenv cocoapods
+export GEM_HOME=$HOME/.gem
+export PATH=$GEM_HOME/bin:$PATH
+
+# local bins
 export PATH=./bin:~/.bin:$PATH
+export PATH=~/.local/bin:$PATH
+export PATH=~/bin:$PATH
 
-export JRUBY_OPTS=--1.9
+# pyenv
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init --path)"
+  eval "$(pyenv init -)"
+fi
 
-### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
+# flutter
+export PATH="$PATH:$HOME/development/flutter/bin"
+
+# xtdb.com deployment == turned off (for pariyatti)
+export AWS_PROFILE=default
+
+# coreutils
+#export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+
+# openjdk - homebrew
+export JAVA_HOME="/usr/local/opt/openjdk@17/"
+export PATH="/usr/local/opt/openjdk@17/bin:$PATH"
+
+# pandoc_resume
+export PATH=$PATH:/Library/TeX/texbin/
+
+# rust
+export PATH=$PATH:~/.cargo/bin
+
+# use brew sqlite3, not MacOS default
+export PATH="$(brew --prefix sqlite3)/bin:${PATH}"
+
