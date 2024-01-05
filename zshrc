@@ -104,6 +104,7 @@ if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 # rbenv cocoapods
 export GEM_HOME=$HOME/.gem
 export PATH=$GEM_HOME/bin:$PATH
+export PATH=$GEM_HOME/ruby/3.2.0/bin:$PATH
 
 # local bins
 export PATH=./bin:~/.bin:$PATH
