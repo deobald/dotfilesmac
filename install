@@ -9,20 +9,11 @@ else
 fi
 cat gitconfig.withoutuser >> gitconfig
 
-if [ ! -s $HOME/.oh-my-zsh ]; then
-    echo "time to get oh-my-zsh"
-    git clone --depth 1 git://github.com/robbyrussell/oh-my-zsh.git $HOME/.oh-my-zsh
-else
-    echo "oh my zsh already exists - skipping it"
-fi
-
 if [ ! -s $HOME/.rbenv ]; then
-    rbenv_path=$HOME/.rbenv
-    echo "time to get rbenv"
-    git clone --depth 1 git://github.com/sstephenson/rbenv.git $rbenv_path
-    git clone git://github.com/sstephenson/ruby-build.git $rbenv_path/plugins
+    echo "please 'brew install rbenv ruby-build' - https://github.com/rbenv/rbenv"
+    exit 2
 else
-    echo "rbenv already exists - skipping it"
+    echo "rbenv exists - good."
 fi
 
 for f in $(ls)
@@ -30,7 +21,6 @@ do
     test $f = "install" && continue
     test $f = "gitconfig.withoutuser" && continue
     test $f = "gitconfig.user" && continue
-    test $f = "oh-my-zsh" && continue
     test $f = "rbenv" && continue
     dest="$HOME/.$f"
     file="$PWD/$f"
