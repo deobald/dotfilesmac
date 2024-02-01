@@ -139,3 +139,6 @@ export PATH=$PATH:~/.cargo/bin
 # use brew sqlite3, not MacOS default
 export PATH="$(brew --prefix sqlite3)/bin:${PATH}"
 
+# GPG for GitHub
+export GPG_TTY=$(tty)
+
