@@ -142,3 +142,5 @@ export PATH="$(brew --prefix sqlite3)/bin:${PATH}"
 # GPG for GitHub
 export GPG_TTY=$(tty)
 
+
+eval "$(atuin init zsh)"
