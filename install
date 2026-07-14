@@ -9,19 +9,11 @@ else
 fi
 cat gitconfig.withoutuser >> gitconfig
 
-if [ ! -s $HOME/.rbenv ]; then
-    echo "please 'brew install rbenv ruby-build' - https://github.com/rbenv/rbenv"
-    exit 2
-else
-    echo "rbenv exists - good."
-fi
-
 for f in $(ls)
 do
     test $f = "install" && continue
     test $f = "gitconfig.withoutuser" && continue
     test $f = "gitconfig.user" && continue
-    test $f = "rbenv" && continue
     dest="$HOME/.$f"
     file="$PWD/$f"
     if [ -e $dest ] || [ -h $dest ]; then
@@ -45,5 +37,5 @@ do
     fi
 done
 
-
 nano $HOME/.gitconfig
+

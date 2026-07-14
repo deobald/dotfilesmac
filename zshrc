@@ -68,9 +68,7 @@ setopt auto_pushd
 
 # paths -------------------------------------------------------
 
-export PATH="$HOME/.rbenv/bin:$PATH"
-export PATH="$HOME/bin:$PATH"
-export PATH="./bin:$PATH"
+export PATH="$PATH:/opt/homebrew/bin"
 
 alias vi=vim
 alias ep="vim ~/.zshrc && source ~/.zshrc"
@@ -98,37 +96,16 @@ if [ -d ~/.soft_links ]; then
   done
 fi
 
-# rbenv
-if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
-
-# rbenv cocoapods
-export GEM_HOME=$HOME/.gem
-export PATH=$GEM_HOME/bin:$PATH
-export PATH=$GEM_HOME/ruby/3.2.0/bin:$PATH
-
 # local bins
 export PATH=./bin:~/.bin:$PATH
 export PATH=~/.local/bin:$PATH
 export PATH=~/bin:$PATH
-
-# pyenv
-if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init --path)"
-  eval "$(pyenv init -)"
-fi
-
-# flutter
-export PATH="$PATH:$HOME/development/flutter/bin"
 
 # xtdb.com deployment == turned off (for pariyatti)
 export AWS_PROFILE=default
 
 # coreutils
 #export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
-
-# openjdk - homebrew
-export JAVA_HOME="/usr/local/opt/openjdk@17/"
-export PATH="/usr/local/opt/openjdk@17/bin:$PATH"
 
 # pandoc_resume
 export PATH=$PATH:/Library/TeX/texbin/
@@ -142,5 +119,6 @@ export PATH="$(brew --prefix sqlite3)/bin:${PATH}"
 # GPG for GitHub
 export GPG_TTY=$(tty)
 
+# don't assume Atuin exists
+# eval "$(atuin init zsh)"
 
-eval "$(atuin init zsh)"
